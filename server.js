@@ -10,7 +10,9 @@ app.get("/", (req, res) => {
 });
 
 const productsRouter = require("./routes/products");
+const categoriesRouter = require("./routes/categories");
 
 
 app.use("/products", productsRouter);
+app.use("/categories", categoriesRouter);
 
