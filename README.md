@@ -1,7 +1,7 @@
 ### Full-Stack E-Commerce Website Back-end) - continues
 This is the backend side of a full-stack e-commerce project.
 
-<a href="https://github.com/FatihKarasu/e-commerce-api">Backend</a>
+<a href="https://github.com/FatihKarasu/e-commerce">Frontend</a>
 
 #### Getting Started
 
