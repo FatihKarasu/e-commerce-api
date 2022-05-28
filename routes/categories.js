@@ -1,6 +1,11 @@
 const express = require("express");
 const { categories } = require("../data/categories");
-const { products } = require("../data/products");
+const {
+  getProducts,
+  getColor,
+  getSize,
+  getProductDetail,
+} = require("../data/products");
 const router = express.Router();
 
 // Get Main Categories
@@ -16,7 +21,11 @@ router.get("/:categoryId", (req, res) => {
 // Get Products of a Category
 router.get("/:categoryId/products", (req, res) => {
   let categoryId = req.params.categoryId;
-  let result;
+  let start = parseInt(req.query.start);
+  let limit = parseInt(req.query.limit);
+  let products = getProducts();
+
+  let result = [];
   const isMain = () => {
     let exist = false;
     categories.forEach((category) => {
@@ -29,11 +38,47 @@ router.get("/:categoryId/products", (req, res) => {
   };
 
   if (isMain()) {
-    result = products.filter((p) => p.categoryId.startsWith(categoryId));
+    products = products.filter((p) => p.categoryId.startsWith(categoryId));
   } else {
-    result = products.filter((p) => p.categoryId === categoryId);
+    products = products.filter((p) => p.categoryId === categoryId);
   }
-
+  let count = 0;
+  products.forEach((p, index) => {
+    let isExist = false;
+    result.forEach((r) => {
+      if (r.id === p.productDetailId) {
+        let variant = {
+          color: getColor(p.colorId),
+          size: getSize(p.sizeId),
+        };
+        let duplicate = false;
+        r.variants.forEach((v) => {
+          if (
+            v.color.id === variant.color.id &&
+            v.size.id === variant.size.id
+          ) {
+            duplicate = true;
+            return;
+          }
+        });
+        if (!duplicate) r.variants.push(variant);
+        isExist = true;
+        return;
+      }
+    });
+    if (!isExist) {
+      let completeProduct = {
+        id: p.productDetailId,
+        categoryId: p.categoryId,
+        detail: getProductDetail(p.productDetailId),
+        variants: [{ color: getColor(p.colorId), size: getSize(p.sizeId) }],
+      };
+      count++;
+      result.push(completeProduct);
+    }
+  });
+  result = result.slice(start, start + limit);
   res.json(result);
 });
+
 module.exports = router;
