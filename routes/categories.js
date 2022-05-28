@@ -1,7 +1,7 @@
 const express = require("express");
 const { categories } = require("../data/categories");
 const {
-  getProducts,
+  products,
   getColor,
   getSize,
   getProductDetail,
@@ -23,7 +23,6 @@ router.get("/:categoryId/products", (req, res) => {
   let categoryId = req.params.categoryId;
   let start = parseInt(req.query.start);
   let limit = parseInt(req.query.limit);
-  let products = getProducts();
 
   let result = [];
   const isMain = () => {
@@ -36,14 +35,14 @@ router.get("/:categoryId/products", (req, res) => {
     });
     return exist;
   };
-
+  let filteredProducts=[]
   if (isMain()) {
-    products = products.filter((p) => p.categoryId.startsWith(categoryId));
+    filteredProducts = products.filter((p) => p.categoryId.startsWith(categoryId));
   } else {
-    products = products.filter((p) => p.categoryId === categoryId);
+    filteredProducts = products.filter((p) => p.categoryId === categoryId);
   }
   let count = 0;
-  products.forEach((p, index) => {
+  filteredProducts.forEach((p, index) => {
     let isExist = false;
     result.forEach((r) => {
       if (r.id === p.productDetailId) {

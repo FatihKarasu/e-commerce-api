@@ -160,6 +160,8 @@ const getProductDetail = (detailId) => {
 generateProducts();
 
 module.exports = {
+  products,
+  productDetails,
   getProducts,
   getProductDetails,
   getProductDetail,
