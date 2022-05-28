@@ -29,7 +29,7 @@ router.get("/:categoryId/products", (req, res) => {
   };
 
   if (isMain()) {
-    result = products.filter((p) => p.categoryId.includes(categoryId));
+    result = products.filter((p) => p.categoryId.startsWith(categoryId));
   } else {
     result = products.filter((p) => p.categoryId === categoryId);
   }

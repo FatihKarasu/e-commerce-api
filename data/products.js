@@ -1,7 +1,7 @@
 var products = [
     {
       id: "red-dress",
-      categoryId:"women-sub1",
+      categoryId:"women-sub-1",
       title: "Red Dress",
       image: "images/product1.jpg",
       description: "Happiness dress",
@@ -10,7 +10,7 @@ var products = [
     },
     {
       id: "yellow-dress",
-      categoryId:"women-sub1",
+      categoryId:"women-sub-1",
       title: "Yellow Dress",
       image: "images/product2.jpg",
       description: "Indian kashmiri kaftaan",
@@ -19,7 +19,7 @@ var products = [
     },
     {
       id: "green-dress",
-      categoryId:"women-sub1",
+      categoryId:"women-sub-1",
       title: "Green Dress",
       image: "images/product3.jpg",
       description: "A beautiful long green dress on a hanger on a white wall",
@@ -28,7 +28,7 @@ var products = [
     },
     {
       id: "red-dress-2",
-      categoryId:"women-sub1",
+      categoryId:"women-sub-1",
       title: "Red Dress 2",
       image: "images/product4.jpg",
       description: "A beautiful red dress",
