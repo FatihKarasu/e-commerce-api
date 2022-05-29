@@ -14,15 +14,21 @@ router.get("/", (req, res) => {
 
 router.get("/:productId", (req, res) => {
   let productId = req.params.productId;
-  let completeProduct;
+  let completeProduct = null;
   products.forEach((p) => {
     if (p.productDetailId === productId) {
-      completeProduct = {
-        id: p.productDetailId,
-        categoryId: p.categoryId,
-        detail: getProductDetail(p.productDetailId),
-        variants: [{ color: getColor(p.colorId), size: getSize(p.sizeId) }],
-      };
+      if (completeProduct === null) {
+        completeProduct = {
+          id: p.productDetailId,
+          categoryId: p.categoryId,
+          detail: getProductDetail(p.productDetailId),
+          variants: [{ color: getColor(p.colorId), size: getSize(p.sizeId) }],
+        };
+      } else
+        completeProduct.variants.push({
+          color: getColor(p.colorId),
+          size: getSize(p.sizeId),
+        });
     }
   });
 
